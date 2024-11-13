@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -83,6 +84,7 @@
             this.texPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.texPassword.Location = new System.Drawing.Point(119, 337);
             this.texPassword.Name = "texPassword";
+            this.texPassword.PasswordChar = '*';
             this.texPassword.Size = new System.Drawing.Size(254, 26);
             this.texPassword.TabIndex = 4;
             // 
@@ -99,6 +101,7 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(72)))), ((int)(((byte)(143)))), ((int)(((byte)(247)))));
+            this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.Location = new System.Drawing.Point(289, 374);
@@ -111,11 +114,11 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackgroundImage = global::SchoolManagement.Properties.Resources.Login;
+            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Location = new System.Drawing.Point(163, 77);
+            this.pictureBox1.Location = new System.Drawing.Point(155, 73);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(168, 166);
+            this.pictureBox1.Size = new System.Drawing.Size(184, 179);
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
             // 
