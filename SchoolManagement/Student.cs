@@ -21,7 +21,7 @@ namespace SchoolManagement
         private void Form1_Load(object sender, EventArgs e)
         {
             LoadData();
-            txtStudentId.Text = Guid.NewGuid().ToString("N").Substring(0, 12);
+            
             txtStudentGen.Items.Add("Male");
             txtStudentGen.Items.Add("Female");
             txtStudentGen.Items.Add("Other");
@@ -179,7 +179,7 @@ namespace SchoolManagement
 
         private void btnNew_Click(object sender, EventArgs e)
         {
-            txtStudentId.Text = Guid.NewGuid().ToString("N").Substring(0, 12);
+            txtStudentId.Text = "";
             txtStudentName.Text = "";
             txtStudentDob.Value = DateTime.Now;  
             txtStudentDob.Format = DateTimePickerFormat.Custom;  

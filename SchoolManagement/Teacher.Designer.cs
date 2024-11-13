@@ -1,6 +1,6 @@
 ﻿namespace SchoolManagement
 {
-    partial class Student
+    partial class Teacher
     {
         /// <summary>
         /// Required designer variable.
@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Student));
-            this.label1 = new System.Windows.Forms.Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Teacher));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtStudentDob = new System.Windows.Forms.DateTimePicker();
+            this.txtStudentGen = new System.Windows.Forms.ComboBox();
             this.btnDisplay = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
@@ -44,34 +46,20 @@
             this.txtStudentPhone = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.txtStudentName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtStudentId = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txtStudentGen = new System.Windows.Forms.ComboBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft YaHei", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(234, 84);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(145, 42);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Student";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // panel1
             // 
@@ -82,12 +70,41 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(990, 138);
-            this.panel1.TabIndex = 2;
+            this.panel1.TabIndex = 21;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft YaHei", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(234, 84);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(146, 42);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Teacher";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(416, 817);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(180, 13);
+            this.label9.TabIndex = 23;
+            this.label9.Text = "© 2024 by Jenny. All rights reserved.";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(44, 575);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(897, 202);
+            this.dataGridView1.TabIndex = 25;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.txtStudentGen);
-            this.groupBox1.Controls.Add(this.txtStudentDob);
             this.groupBox1.Controls.Add(this.btnDisplay);
             this.groupBox1.Controls.Add(this.btnNew);
             this.groupBox1.Controls.Add(this.btnDelete);
@@ -100,29 +117,25 @@
             this.groupBox1.Controls.Add(this.txtStudentPhone);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.txtStudentName);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.txtStudentId);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(44, 163);
+            this.groupBox1.Location = new System.Drawing.Point(44, 153);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(897, 413);
-            this.groupBox1.TabIndex = 3;
+            this.groupBox1.TabIndex = 24;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Student Information";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            this.groupBox1.Text = "Teacher Information";
             // 
-            // txtStudentDob
+            // txtStudentGen
             // 
-            this.txtStudentDob.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtStudentDob.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.txtStudentDob.Location = new System.Drawing.Point(177, 153);
-            this.txtStudentDob.Name = "txtStudentDob";
-            this.txtStudentDob.Size = new System.Drawing.Size(263, 26);
-            this.txtStudentDob.TabIndex = 18;
-            this.txtStudentDob.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
-            this.txtStudentDob.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dateTimePicker1_KeyDown);
+            this.txtStudentGen.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtStudentGen.FormattingEnabled = true;
+            this.txtStudentGen.Location = new System.Drawing.Point(177, 145);
+            this.txtStudentGen.Name = "txtStudentGen";
+            this.txtStudentGen.Size = new System.Drawing.Size(263, 28);
+            this.txtStudentGen.TabIndex = 19;
             // 
             // btnDisplay
             // 
@@ -134,7 +147,6 @@
             this.btnDisplay.TabIndex = 17;
             this.btnDisplay.Text = "Display";
             this.btnDisplay.UseVisualStyleBackColor = false;
-            this.btnDisplay.Click += new System.EventHandler(this.btnDisplay_Click);
             // 
             // btnNew
             // 
@@ -146,7 +158,6 @@
             this.btnNew.TabIndex = 16;
             this.btnNew.Text = "New";
             this.btnNew.UseVisualStyleBackColor = false;
-            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // btnDelete
             // 
@@ -158,7 +169,6 @@
             this.btnDelete.TabIndex = 15;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = false;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnUpdate
             // 
@@ -170,7 +180,6 @@
             this.btnUpdate.TabIndex = 14;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = false;
-            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnAdd
             // 
@@ -182,7 +191,6 @@
             this.btnAdd.TabIndex = 13;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = false;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnSave
             // 
@@ -194,12 +202,11 @@
             this.btnSave.TabIndex = 4;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = false;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // txtStudentEmail
             // 
             this.txtStudentEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtStudentEmail.Location = new System.Drawing.Point(177, 293);
+            this.txtStudentEmail.Location = new System.Drawing.Point(177, 240);
             this.txtStudentEmail.Name = "txtStudentEmail";
             this.txtStudentEmail.Size = new System.Drawing.Size(263, 26);
             this.txtStudentEmail.TabIndex = 11;
@@ -208,7 +215,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(31, 296);
+            this.label7.Location = new System.Drawing.Point(31, 243);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(48, 20);
             this.label7.TabIndex = 10;
@@ -217,7 +224,7 @@
             // txtStudentPhone
             // 
             this.txtStudentPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtStudentPhone.Location = new System.Drawing.Point(177, 243);
+            this.txtStudentPhone.Location = new System.Drawing.Point(177, 190);
             this.txtStudentPhone.Name = "txtStudentPhone";
             this.txtStudentPhone.Size = new System.Drawing.Size(263, 26);
             this.txtStudentPhone.TabIndex = 9;
@@ -226,7 +233,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(31, 246);
+            this.label6.Location = new System.Drawing.Point(31, 193);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(55, 20);
             this.label6.TabIndex = 8;
@@ -236,26 +243,16 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(31, 201);
+            this.label5.Location = new System.Drawing.Point(31, 148);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(63, 20);
             this.label5.TabIndex = 6;
             this.label5.Text = "Gender";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(31, 158);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(44, 20);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "DOB";
-            // 
             // txtStudentName
             // 
             this.txtStudentName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtStudentName.Location = new System.Drawing.Point(177, 107);
+            this.txtStudentName.Location = new System.Drawing.Point(177, 99);
             this.txtStudentName.Name = "txtStudentName";
             this.txtStudentName.Size = new System.Drawing.Size(263, 26);
             this.txtStudentName.TabIndex = 3;
@@ -264,17 +261,16 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(31, 110);
+            this.label3.Location = new System.Drawing.Point(31, 102);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(112, 20);
+            this.label3.Size = new System.Drawing.Size(113, 20);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Student Name";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
+            this.label3.Text = "Teacher Name";
             // 
             // txtStudentId
             // 
             this.txtStudentId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtStudentId.Location = new System.Drawing.Point(177, 61);
+            this.txtStudentId.Location = new System.Drawing.Point(177, 53);
             this.txtStudentId.Name = "txtStudentId";
             this.txtStudentId.Size = new System.Drawing.Size(263, 26);
             this.txtStudentId.TabIndex = 1;
@@ -283,48 +279,29 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(31, 64);
+            this.label2.Location = new System.Drawing.Point(31, 56);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(87, 20);
+            this.label2.Size = new System.Drawing.Size(88, 20);
             this.label2.TabIndex = 0;
-            this.label2.Text = "Student ID";
+            this.label2.Text = "Teacher ID";
             // 
-            // dataGridView1
+            // textBox1
             // 
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(44, 585);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(897, 174);
-            this.dataGridView1.TabIndex = 19;
-            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(177, 290);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(263, 26);
+            this.textBox1.TabIndex = 21;
             // 
-            // label8
+            // label4
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(0, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(35, 13);
-            this.label8.TabIndex = 20;
-            this.label8.Text = "label8";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(416, 785);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(180, 13);
-            this.label9.TabIndex = 21;
-            this.label9.Text = "© 2024 by Jenny. All rights reserved.";
-            // 
-            // txtStudentGen
-            // 
-            this.txtStudentGen.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtStudentGen.FormattingEnabled = true;
-            this.txtStudentGen.Location = new System.Drawing.Point(177, 198);
-            this.txtStudentGen.Name = "txtStudentGen";
-            this.txtStudentGen.Size = new System.Drawing.Size(263, 28);
-            this.txtStudentGen.TabIndex = 19;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(31, 293);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(63, 20);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "Subject";
             // 
             // pictureBox2
             // 
@@ -347,26 +324,24 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // Student
+            // Teacher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(990, 816);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.label8);
+            this.ClientSize = new System.Drawing.Size(990, 853);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.panel1);
-            this.Name = "Student";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Student";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Name = "Teacher";
+            this.Text = "Teacher";
+            this.Load += new System.EventHandler(this.Teacher_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -376,10 +351,16 @@
 
         #endregion
 
+        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox txtStudentGen;
+        private System.Windows.Forms.Button btnDisplay;
         private System.Windows.Forms.Button btnNew;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnUpdate;
@@ -391,16 +372,9 @@
         private System.Windows.Forms.TextBox txtStudentPhone;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtStudentName;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtStudentId;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btnDisplay;
-        private System.Windows.Forms.DateTimePicker txtStudentDob;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.ComboBox txtStudentGen;
     }
 }
