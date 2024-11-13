@@ -20,7 +20,7 @@ namespace SchoolManagement
 
         private void button1_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-JBJ28O4;Initial Catalog=schooldb;User ID=sa;Password=***********;Encrypt=True;TrustServerCertificate=True;");
+            SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-JBJ28O4;Initial Catalog=schooldb;Integrated Security=True;Trust Server Certificate=True");
             con.Open();
             string username = texUsername.Text;
             string password = texPassword.Text;
