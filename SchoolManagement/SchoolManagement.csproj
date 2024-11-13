@@ -152,11 +152,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Studeent.cs">
+    <Compile Include="Student.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Studeent.Designer.cs">
-      <DependentUpon>Studeent.cs</DependentUpon>
+    <Compile Include="Student.Designer.cs">
+      <DependentUpon>Student.cs</DependentUpon>
     </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
@@ -172,8 +172,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Studeent.resx">
-      <DependentUpon>Studeent.cs</DependentUpon>
+    <EmbeddedResource Include="Student.resx">
+      <DependentUpon>Student.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

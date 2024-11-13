@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.button7 = new System.Windows.Forms.Button();
@@ -40,7 +41,6 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -68,6 +68,15 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1175, 138);
             this.panel1.TabIndex = 1;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(238, 71);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(180, 13);
+            this.label9.TabIndex = 22;
+            this.label9.Text = "© 2024 by Jenny. All rights reserved.";
             // 
             // label1
             // 
@@ -97,84 +106,90 @@
             // 
             // button7
             // 
+            this.button7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(72)))), ((int)(((byte)(143)))), ((int)(((byte)(247)))));
+            this.button7.FlatAppearance.BorderSize = 0;
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button7.Location = new System.Drawing.Point(13, 355);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(202, 48);
             this.button7.TabIndex = 9;
             this.button7.Text = "Dashboard";
-            this.button7.UseVisualStyleBackColor = true;
+            this.button7.UseVisualStyleBackColor = false;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button6
             // 
+            this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(72)))), ((int)(((byte)(143)))), ((int)(((byte)(247)))));
+            this.button6.FlatAppearance.BorderSize = 0;
             this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button6.Location = new System.Drawing.Point(13, 301);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(202, 48);
             this.button6.TabIndex = 8;
             this.button6.Text = "Attendance";
-            this.button6.UseVisualStyleBackColor = true;
+            this.button6.UseVisualStyleBackColor = false;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // button5
             // 
+            this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(72)))), ((int)(((byte)(143)))), ((int)(((byte)(247)))));
+            this.button5.FlatAppearance.BorderSize = 0;
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button5.Location = new System.Drawing.Point(13, 241);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(202, 53);
             this.button5.TabIndex = 7;
             this.button5.Text = "Enrollment";
-            this.button5.UseVisualStyleBackColor = true;
+            this.button5.UseVisualStyleBackColor = false;
             // 
             // button4
             // 
+            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(72)))), ((int)(((byte)(143)))), ((int)(((byte)(247)))));
+            this.button4.FlatAppearance.BorderSize = 0;
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button4.Location = new System.Drawing.Point(13, 184);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(202, 51);
             this.button4.TabIndex = 6;
             this.button4.Text = "Section";
-            this.button4.UseVisualStyleBackColor = true;
+            this.button4.UseVisualStyleBackColor = false;
             // 
             // button3
             // 
+            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(72)))), ((int)(((byte)(143)))), ((int)(((byte)(247)))));
+            this.button3.FlatAppearance.BorderSize = 0;
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.Location = new System.Drawing.Point(13, 128);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(202, 50);
             this.button3.TabIndex = 5;
             this.button3.Text = "Teacher";
-            this.button3.UseVisualStyleBackColor = true;
+            this.button3.UseVisualStyleBackColor = false;
             // 
             // button2
             // 
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(72)))), ((int)(((byte)(143)))), ((int)(((byte)(247)))));
+            this.button2.FlatAppearance.BorderSize = 0;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.Location = new System.Drawing.Point(13, 74);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(202, 48);
             this.button2.TabIndex = 4;
             this.button2.Text = "Subject";
-            this.button2.UseVisualStyleBackColor = true;
+            this.button2.UseVisualStyleBackColor = false;
             // 
             // button1
             // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(72)))), ((int)(((byte)(143)))), ((int)(((byte)(247)))));
+            this.button1.FlatAppearance.BorderSize = 0;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(13, 19);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(202, 49);
             this.button1.TabIndex = 3;
             this.button1.Text = "Student";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(238, 71);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(180, 13);
-            this.label9.TabIndex = 22;
-            this.label9.Text = "© 2024 by Jenny. All rights reserved.";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Main
             // 

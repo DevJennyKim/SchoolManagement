@@ -31,5 +31,11 @@ namespace SchoolManagement
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Student st = new Student();
+            st.Show();
+        }
     }
 }
