@@ -25,12 +25,12 @@ namespace SchoolManagement
 
         private void button6_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("Coming soon!", "notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("Coming soon!", "notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button1_Click(object sender, EventArgs e)
