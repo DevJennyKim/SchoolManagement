@@ -21,16 +21,53 @@ namespace SchoolManagement
         private void Teacher_Load(object sender, EventArgs e)
         {
             LoadData();
+            LoadSubjects();
+
 
             txtTeacherGen.Items.Add("M");
             txtTeacherGen.Items.Add("F");
             txtTeacherGen.Items.Add("They");
             txtTeacherGen.SelectedIndex = 0;
 
+
             txtHireDate.Format = DateTimePickerFormat.Custom;
             txtHireDate.CustomFormat = "dd/MM/yyyy";
 
+            
+        }
 
+        private void LoadSubjects()
+        {
+            try
+            {
+                using (SqlConnection con = GetSqlConnection())
+                {
+                    con.Open();
+
+
+                    SqlCommand cmd = new SqlCommand("SELECT subjectName FROM subtab", con);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+
+                    txtSubject.Items.Clear();
+                    while (reader.Read())
+                    {
+                        txtSubject.Items.Add(reader["subjectName"].ToString());
+                    }
+
+                    reader.Close();
+                }
+
+
+                if (txtSubject.Items.Count > 0)
+                {
+                    txtSubject.SelectedIndex = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading subjects: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
         }
         private SqlConnection GetSqlConnection()
@@ -90,7 +127,7 @@ namespace SchoolManagement
 
 
                 SqlCommand getsubjectIdCmd = new SqlCommand("SELECT subjectId FROM subtab WHERE subjectname = @subjectname", con);
-                getsubjectIdCmd.Parameters.AddWithValue("@subjectname", txtSubject.Text);
+                getsubjectIdCmd.Parameters.AddWithValue("@subjectname", txtSubject.SelectedItem.ToString());
                 object subjectIdObj = getsubjectIdCmd.ExecuteScalar();
 
                 if (subjectIdObj == null)
@@ -132,6 +169,53 @@ namespace SchoolManagement
             reset(sender, e);
             LoadData();
         }
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection con = GetSqlConnection())
+            {
+                con.Open();
+
+             
+                SqlCommand getSubjectIdCmd = new SqlCommand("SELECT subjectId FROM subtab WHERE subjectname = @subjectname", con);
+                getSubjectIdCmd.Parameters.AddWithValue("@subjectname", txtSubject.SelectedItem.ToString());
+                object subjectIdObj = getSubjectIdCmd.ExecuteScalar();
+
+                if (subjectIdObj == null)
+                {
+                    MessageBox.Show("Subject name not found. Please enter a valid subject name.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                int subjectId = Convert.ToInt32(subjectIdObj);
+
+               
+                SqlCommand cnn = new SqlCommand(@"
+            UPDATE teachertab 
+            SET 
+                teachername = @teachername,
+                gender = @gender,
+                phone = @phone,
+                email = @email,
+                hiredate = @hiredate,
+                subjectid = @subjectid 
+            WHERE 
+                teacherid = @teacherid", con);
+
+                cnn.Parameters.AddWithValue("@teacherid", int.Parse(txtTeacherId.Text));
+                cnn.Parameters.AddWithValue("@teachername", txtTeacherName.Text);
+                cnn.Parameters.AddWithValue("@Gender", txtTeacherGen.SelectedItem.ToString());
+                cnn.Parameters.AddWithValue("@Phone", txtTeacherPhone.Text);
+                cnn.Parameters.AddWithValue("@Email", txtTeacherEmail.Text);
+                cnn.Parameters.AddWithValue("@hiredate", txtHireDate.Value.Date);
+                cnn.Parameters.AddWithValue("@subjectid", subjectId);
+
+                cnn.ExecuteNonQuery();
+            }
+
+            MessageBox.Show("Record updated successfully.", "Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            reset(sender, e);
+            LoadData();
+        }
 
         private void LoadData()
         {
@@ -163,13 +247,28 @@ namespace SchoolManagement
             }
 
         }
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection con = GetSqlConnection())
+            {
+                con.Open();
+
+                SqlCommand cnn = new SqlCommand("DELETE FROM teachertab WHERE teacherid=@teacherid", con);
+                cnn.Parameters.AddWithValue("@teacherid", int.Parse(txtTeacherId.Text));
+                cnn.ExecuteNonQuery();
+            }
+
+            MessageBox.Show("Record deleted successfully.", "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            reset(sender, e);
+            LoadData();
+        }
         private void btnDisplay_Click(object sender, EventArgs e)
         {
             using (SqlConnection con = GetSqlConnection())
             {
                 con.Open();
 
-                SqlCommand cnn = new SqlCommand("select * from studentab", con);
+                SqlCommand cnn = new SqlCommand("select * from teachertab", con);
                 SqlDataAdapter da = new SqlDataAdapter(cnn);
                 DataTable table = new DataTable();
                 da.Fill(table);
@@ -199,8 +298,8 @@ namespace SchoolManagement
                 txtTeacherGen.Text = row.Cells["gender"].Value?.ToString() ?? "";
                 txtTeacherPhone.Text = row.Cells["phone"].Value?.ToString() ?? "";
                 txtTeacherEmail.Text = row.Cells["email"].Value?.ToString() ?? "";
-                txtHireDate.Value = row.Cells["hireDate"].Value != DBNull.Value ? Convert.ToDateTime(row.Cells["dob"].Value) : DateTime.Now;
-                txtSubject.Text = row.Cells["SubjectName"].Value?.ToString() ?? "";
+                txtHireDate.Value = row.Cells["hireDate"].Value != DBNull.Value ? Convert.ToDateTime(row.Cells["hiredate"].Value) : DateTime.Now;
+                txtSubject.SelectedItem = row.Cells["SubjectName"].Value?.ToString() ?? "";
             }
         }
     }

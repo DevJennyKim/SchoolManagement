@@ -36,7 +36,6 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtHireDate = new System.Windows.Forms.DateTimePicker();
-            this.txtSubject = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.txtTeacherGen = new System.Windows.Forms.ComboBox();
@@ -55,6 +54,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtTeacherId = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.txtSubject = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -115,8 +115,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.txtHireDate);
             this.groupBox1.Controls.Add(this.txtSubject);
+            this.groupBox1.Controls.Add(this.txtHireDate);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.txtTeacherGen);
@@ -152,14 +152,6 @@
             this.txtHireDate.TabIndex = 26;
             this.txtHireDate.ValueChanged += new System.EventHandler(this.txtHireDate_ValueChanged);
             this.txtHireDate.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtHireDate_KeyDown);
-            // 
-            // txtSubject
-            // 
-            this.txtSubject.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSubject.Location = new System.Drawing.Point(177, 230);
-            this.txtSubject.Name = "txtSubject";
-            this.txtSubject.Size = new System.Drawing.Size(263, 26);
-            this.txtSubject.TabIndex = 25;
             // 
             // label10
             // 
@@ -200,6 +192,7 @@
             this.btnDisplay.TabIndex = 17;
             this.btnDisplay.Text = "Display";
             this.btnDisplay.UseVisualStyleBackColor = false;
+            this.btnDisplay.Click += new System.EventHandler(this.btnDisplay_Click);
             // 
             // btnNew
             // 
@@ -211,6 +204,7 @@
             this.btnNew.TabIndex = 16;
             this.btnNew.Text = "Clear";
             this.btnNew.UseVisualStyleBackColor = false;
+            this.btnNew.Click += new System.EventHandler(this.reset);
             // 
             // btnDelete
             // 
@@ -222,6 +216,7 @@
             this.btnDelete.TabIndex = 15;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnUpdate
             // 
@@ -233,6 +228,7 @@
             this.btnUpdate.TabIndex = 14;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = false;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnSave
             // 
@@ -338,6 +334,15 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Teacher ID";
             // 
+            // txtSubject
+            // 
+            this.txtSubject.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSubject.FormattingEnabled = true;
+            this.txtSubject.Location = new System.Drawing.Point(177, 230);
+            this.txtSubject.Name = "txtSubject";
+            this.txtSubject.Size = new System.Drawing.Size(263, 28);
+            this.txtSubject.TabIndex = 27;
+            // 
             // Teacher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -388,8 +393,8 @@
         private System.Windows.Forms.TextBox txtTeacherId;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox txtSubject;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.DateTimePicker txtHireDate;
+        private System.Windows.Forms.ComboBox txtSubject;
     }
 }

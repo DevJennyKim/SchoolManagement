@@ -16,10 +16,13 @@ namespace SchoolManagement
             LoadData();
 
         }
-
+        private SqlConnection GetSqlConnection()
+        {
+            return new SqlConnection(@"Data Source=DESKTOP-JBJ28O4;Initial Catalog=schooldb;Integrated Security=True;Trust Server Certificate=True");
+        }
         private void LoadData()
         {
-            using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-JBJ28O4;Initial Catalog=schooldb;Integrated Security=True;Trust Server Certificate=True"))
+            using (SqlConnection con = GetSqlConnection())
             {
                 con.Open();
                 SqlCommand cnn = new SqlCommand("SELECT * FROM subtab", con);
@@ -37,98 +40,119 @@ namespace SchoolManagement
                 MessageBox.Show("Please enter a Subject name.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-
-
-            SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-JBJ28O4;Initial Catalog=schooldb;Integrated Security=True;Trust Server Certificate=True");
-            con.Open();
-
-
-            SqlCommand checkIdCmd = new SqlCommand("SELECT COUNT(*) FROM subtab WHERE subjectid = @subjectid", con);
-            checkIdCmd.Parameters.AddWithValue("@subjectid", int.Parse(txtSubjectId.Text));
-            int idCount = (int)checkIdCmd.ExecuteScalar();
-
-            if (idCount > 0)
+            if (string.IsNullOrWhiteSpace(txtCredit.Text))
             {
-                MessageBox.Show("This Subject ID already exists. Please enter a unique ID.", "Duplicate ID", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                con.Close();
+                MessageBox.Show("Please enter the credit.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
 
-            SqlCommand cnn = new SqlCommand("INSERT INTO subtab VALUES (@subjectid, @subjectname)", con);
-            cnn.Parameters.AddWithValue("@subjectid", int.Parse(txtSubjectId.Text));
-            cnn.Parameters.AddWithValue("@subjectName", txtSubjectName.Text);
 
-            cnn.ExecuteNonQuery();
-            con.Close();
+            using (SqlConnection con = GetSqlConnection())
+            {
+                con.Open();
 
-            MessageBox.Show("Record saved successfully.", "Save", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            LoadData();
-            LoadData();
+
+                SqlCommand checkIdCmd = new SqlCommand("SELECT COUNT(*) FROM subtab WHERE subjectid = @subjectid", con);
+                checkIdCmd.Parameters.AddWithValue("@subjectid", int.Parse(txtSubjectId.Text));
+                int idCount = (int)checkIdCmd.ExecuteScalar();
+
+                if (idCount > 0)
+                {
+                    MessageBox.Show("This Subject ID already exists. Please enter a unique ID.", "Duplicate ID", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    con.Close();
+                    return;
+                }
+
+
+                SqlCommand cnn = new SqlCommand("INSERT INTO subtab VALUES (@subjectid, @subjectname,@description,@credits)", con);
+                cnn.Parameters.AddWithValue("@subjectid", int.Parse(txtSubjectId.Text));
+                cnn.Parameters.AddWithValue("@subjectName", txtSubjectName.Text);
+                cnn.Parameters.AddWithValue("@description", txtDesc.Text);
+                cnn.Parameters.AddWithValue("@credits", int.Parse(txtCredit.Text));
+                
+
+                cnn.ExecuteNonQuery();
+                con.Close();
+
+                MessageBox.Show("Record saved successfully.", "Save", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadData();
+            }
         }
 
 
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-JBJ28O4;Initial Catalog=schooldb;Integrated Security=True;Trust Server Certificate=True");
-            con.Open();
+            using (SqlConnection con = GetSqlConnection())
+            {
+                con.Open();
 
-            SqlCommand cnn = new SqlCommand("update subtab set subjectname=@subjectname where subjectid=@subjectid", con);
-            cnn.Parameters.AddWithValue("@subjectid", int.Parse(txtSubjectId.Text));
-            cnn.Parameters.AddWithValue("@subjectName", txtSubjectName.Text);
+                SqlCommand cnn = new SqlCommand("update subtab set subjectname=@subjectname where subjectid=@subjectid", con);
+                cnn.Parameters.AddWithValue("@subjectid", int.Parse(txtSubjectId.Text));
+                cnn.Parameters.AddWithValue("@subjectName", txtSubjectName.Text);
+                cnn.Parameters.AddWithValue("@description", txtSubjectName.Text);
+                cnn.Parameters.AddWithValue("@credits", int.Parse(txtCredit.Text));
 
-            cnn.ExecuteNonQuery();
-            con.Close();
-            MessageBox.Show("Record Update Successfully", "Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            LoadData();
+                cnn.ExecuteNonQuery();
+                con.Close();
+                MessageBox.Show("Record Update Successfully", "Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadData();
+            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-JBJ28O4;Initial Catalog=schooldb;Integrated Security=True;Trust Server Certificate=True");
-            con.Open();
+            using (SqlConnection con = GetSqlConnection())
+            {
+                con.Open();
 
-            SqlCommand cnn = new SqlCommand("select * from subtab", con);
-            SqlDataAdapter da = new SqlDataAdapter(cnn);
-            DataTable table = new DataTable();
-            da.Fill(table);
-            dataGridView1.DataSource = table;
-            LoadData();
+                SqlCommand cnn = new SqlCommand("select * from subtab", con);
+                SqlDataAdapter da = new SqlDataAdapter(cnn);
+                DataTable table = new DataTable();
+                da.Fill(table);
+                dataGridView1.DataSource = table;
+                LoadData();
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-JBJ28O4;Initial Catalog=schooldb;Integrated Security=True;Trust Server Certificate=True");
-            con.Open();
+            using (SqlConnection con = GetSqlConnection())
+            {
+                con.Open();
 
-            SqlCommand cnn = new SqlCommand("delete subtab where subjectid=@subjectid", con);
-            cnn.Parameters.AddWithValue("@subjectid", int.Parse(txtSubjectId.Text));
+                SqlCommand cnn = new SqlCommand("delete subtab where subjectid=@subjectid", con);
+                cnn.Parameters.AddWithValue("@subjectid", int.Parse(txtSubjectId.Text));
 
-            cnn.ExecuteNonQuery();
-            con.Close();
-            MessageBox.Show("Record Deleted Successfully", "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            LoadData();
+                cnn.ExecuteNonQuery();
+                con.Close();
+                MessageBox.Show("Record Deleted Successfully", "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadData();
+            }
         }
 
         private void btnNew_Click(object sender, EventArgs e)
         {
             txtSubjectId.Text = "";
             txtSubjectName.Text = "";
+            txtDesc.Text = "";
+            txtCredit.Text = "";
         }
 
         private void btnDisplay_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-JBJ28O4;Initial Catalog=schooldb;Integrated Security=True;Trust Server Certificate=True");
-            con.Open();
+            using (SqlConnection con = GetSqlConnection())
+            {
+                con.Open();
 
-            SqlCommand cnn = new SqlCommand("select * from subtab", con);
-            SqlDataAdapter da = new SqlDataAdapter(cnn);
-            DataTable table = new DataTable();
-            da.Fill(table);
-            dataGridView1.DataSource = table;
-            LoadData();
+                SqlCommand cnn = new SqlCommand("select * from subtab", con);
+                SqlDataAdapter da = new SqlDataAdapter(cnn);
+                DataTable table = new DataTable();
+                da.Fill(table);
+                dataGridView1.DataSource = table;
+                LoadData();
+            }
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -139,6 +163,8 @@ namespace SchoolManagement
 
                 txtSubjectId.Text = row.Cells["subjectid"].Value != DBNull.Value ? row.Cells["subjectid"].Value.ToString() : "";
                 txtSubjectName.Text = row.Cells["subjectName"].Value != DBNull.Value ? row.Cells["subjectName"].Value.ToString() : "";
+                txtDesc.Text = row.Cells["description"].Value != DBNull.Value ? row.Cells["description"].Value.ToString() : "";
+                txtCredit.Text = row.Cells["credits"].Value != DBNull.Value ? row.Cells["credits"].Value.ToString() : "";
 
             }
         }

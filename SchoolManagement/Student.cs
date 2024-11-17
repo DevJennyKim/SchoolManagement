@@ -177,23 +177,57 @@ namespace SchoolManagement
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            using (SqlConnection con = GetSqlConnection())
+            try
+            {
+                using (SqlConnection con = GetSqlConnection())
             {
                 con.Open();
+                int teacherId;
+                using (SqlCommand getTeacherIdCmd = new SqlCommand("SELECT teacherid FROM teachertab WHERE teachername = @teachername", con))
+                {
+                    getTeacherIdCmd.Parameters.AddWithValue("@teachername", txtTeacher.Text);
+                    object teacherIdObj = getTeacherIdCmd.ExecuteScalar();
+                    if (teacherIdObj == null)
+                    {
+                        MessageBox.Show("Teacher name not found. Please enter a valid teacher name.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    teacherId = Convert.ToInt32(teacherIdObj);
+                }
 
-                SqlCommand cnn = new SqlCommand("UPDATE studentab SET studentname=@studentname, dob=@dob, gender=@gender, phone=@phone, email=@email WHERE studentid=@studentid", con);
+                SqlCommand cnn = new SqlCommand(@"
+    UPDATE studentab 
+    SET 
+        studentname = @studentname, 
+        dob = @dob, 
+        gender = @gender, 
+        phone = @phone, 
+        email = @email, 
+        address = @address, 
+        enrollmentDate = @enrollmentDate, 
+        teacherid = @teacherid
+    WHERE 
+        studentid = @studentid", con);
                 cnn.Parameters.AddWithValue("@StudentId", int.Parse(txtStudentId.Text));
                 cnn.Parameters.AddWithValue("@StudentName", txtStudentName.Text);
-                cnn.Parameters.AddWithValue("@Dob", txtStudentDob.Value);
+                cnn.Parameters.AddWithValue("@Dob", txtStudentDob.Value.Date);
                 cnn.Parameters.AddWithValue("@Gender", txtStudentGen.SelectedItem.ToString());
                 cnn.Parameters.AddWithValue("@Phone", txtStudentPhone.Text);
                 cnn.Parameters.AddWithValue("@Email", txtStudentEmail.Text);
+                cnn.Parameters.AddWithValue("@Address", txtStudentAdd.Text);
+                cnn.Parameters.AddWithValue("@EnrollmentDate", txtEnrollmentDate.Value.Date);
+                cnn.Parameters.AddWithValue("@TeacherId", teacherId);
                 cnn.ExecuteNonQuery();
             }
 
             MessageBox.Show("Record updated successfully.", "Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
             reset(sender, e); 
             LoadData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
