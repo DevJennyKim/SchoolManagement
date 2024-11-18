@@ -178,6 +178,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StudentSection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StudentSection.Designer.cs">
+      <DependentUpon>StudentSection.cs</DependentUpon>
+    </Compile>
     <Compile Include="Subject.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -205,6 +211,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudentSection.resx">
+      <DependentUpon>StudentSection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Subject.resx">
       <DependentUpon>Subject.cs</DependentUpon>

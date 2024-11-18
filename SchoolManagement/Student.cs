@@ -4,9 +4,11 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 using Microsoft.Data.SqlClient;
 
 namespace SchoolManagement
@@ -21,7 +23,9 @@ namespace SchoolManagement
         private void Form1_Load(object sender, EventArgs e)
         {
             LoadData();
-            
+            LoadTeacher();
+
+
             txtStudentGen.Items.Add("M");
             txtStudentGen.Items.Add("F");
             txtStudentGen.Items.Add("They");
@@ -37,6 +41,35 @@ namespace SchoolManagement
         private SqlConnection GetSqlConnection()
         {
             return new SqlConnection(@"Data Source=DESKTOP-JBJ28O4;Initial Catalog=schooldb;Integrated Security=True;Trust Server Certificate=True");
+        }
+
+        private void LoadTeacher()
+        {
+            try
+            {
+                using (SqlConnection con = GetSqlConnection())
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("Select teacherName From teachertab", con);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    txtTeacher.Items.Clear();
+                    while (reader.Read())
+                    {
+                        txtTeacher.Items.Add(reader["teacherName"].ToString());
+                    }
+                    reader.Close();
+                }
+                if (txtTeacher.Items.Count > 0)
+                {
+                    txtTeacher.SelectedIndex = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading teacher: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
         private void LoadData()
@@ -80,7 +113,7 @@ namespace SchoolManagement
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            txtStudentDob.CustomFormat = "dd/mm/yyyy";
+            txtStudentDob.CustomFormat = "dd/MM/yyyy";
         }
 
         private void dateTimePicker1_KeyDown(object sender, KeyEventArgs e)
@@ -177,6 +210,11 @@ namespace SchoolManagement
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            if (!IsValidEmail(txtStudentEmail.Text))
+            {
+                MessageBox.Show("Please enter a valid email address.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             try
             {
                 using (SqlConnection con = GetSqlConnection())
@@ -251,14 +289,12 @@ namespace SchoolManagement
             txtStudentId.Text = "";
             txtStudentName.Text = "";
             txtStudentDob.Value = DateTime.Now;  
-            txtStudentDob.Format = DateTimePickerFormat.Custom;  
             txtStudentDob.CustomFormat = "dd/MM/yyyy";
             txtStudentGen.SelectedIndex = 0;
             txtStudentPhone.Text = "";
             txtStudentEmail.Text = "";
             txtStudentAdd.Text = "";
             txtEnrollmentDate.Value = DateTime.Now;
-            txtEnrollmentDate.Format = DateTimePickerFormat.Custom;
             txtEnrollmentDate.CustomFormat = "dd/MM/yyyy";
             txtTeacher.Text = "";
         }

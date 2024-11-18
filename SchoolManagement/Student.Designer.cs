@@ -33,9 +33,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtTeacher = new System.Windows.Forms.ComboBox();
+            this.btnNew = new System.Windows.Forms.Button();
             this.txtStudentAdd = new System.Windows.Forms.TextBox();
             this.label_9 = new System.Windows.Forms.Label();
-            this.txtTeacher = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.txtEnrollmentDate = new System.Windows.Forms.DateTimePicker();
             this.label10 = new System.Windows.Forms.Label();
@@ -59,7 +60,6 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.btnNew = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -101,10 +101,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtTeacher);
             this.groupBox1.Controls.Add(this.btnNew);
             this.groupBox1.Controls.Add(this.txtStudentAdd);
             this.groupBox1.Controls.Add(this.label_9);
-            this.groupBox1.Controls.Add(this.txtTeacher);
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.txtEnrollmentDate);
             this.groupBox1.Controls.Add(this.label10);
@@ -132,6 +132,27 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Student Information";
             // 
+            // txtTeacher
+            // 
+            this.txtTeacher.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTeacher.FormattingEnabled = true;
+            this.txtTeacher.Location = new System.Drawing.Point(175, 362);
+            this.txtTeacher.Name = "txtTeacher";
+            this.txtTeacher.Size = new System.Drawing.Size(263, 28);
+            this.txtTeacher.TabIndex = 27;
+            // 
+            // btnNew
+            // 
+            this.btnNew.BackColor = System.Drawing.Color.Snow;
+            this.btnNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNew.Location = new System.Drawing.Point(476, 363);
+            this.btnNew.Name = "btnNew";
+            this.btnNew.Size = new System.Drawing.Size(391, 27);
+            this.btnNew.TabIndex = 26;
+            this.btnNew.Text = "Clear";
+            this.btnNew.UseVisualStyleBackColor = false;
+            this.btnNew.Click += new System.EventHandler(this.reset);
+            // 
             // txtStudentAdd
             // 
             this.txtStudentAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -149,14 +170,6 @@
             this.label_9.Size = new System.Drawing.Size(68, 20);
             this.label_9.TabIndex = 24;
             this.label_9.Text = "Address";
-            // 
-            // txtTeacher
-            // 
-            this.txtTeacher.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTeacher.Location = new System.Drawing.Point(176, 363);
-            this.txtTeacher.Name = "txtTeacher";
-            this.txtTeacher.Size = new System.Drawing.Size(263, 26);
-            this.txtTeacher.TabIndex = 23;
             // 
             // label11
             // 
@@ -379,23 +392,11 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(416, 785);
+            this.label9.Location = new System.Drawing.Point(419, 779);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(180, 13);
             this.label9.TabIndex = 21;
             this.label9.Text = "© 2024 by Jenny. All rights reserved.";
-            // 
-            // btnNew
-            // 
-            this.btnNew.BackColor = System.Drawing.Color.Snow;
-            this.btnNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNew.Location = new System.Drawing.Point(476, 363);
-            this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(391, 27);
-            this.btnNew.TabIndex = 26;
-            this.btnNew.Text = "Clear";
-            this.btnNew.UseVisualStyleBackColor = false;
-            this.btnNew.Click += new System.EventHandler(this.reset);
             // 
             // Student
             // 
@@ -450,12 +451,12 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox txtStudentGen;
-        private System.Windows.Forms.TextBox txtTeacher;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.DateTimePicker txtEnrollmentDate;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtStudentAdd;
         private System.Windows.Forms.Label label_9;
         private System.Windows.Forms.Button btnNew;
+        private System.Windows.Forms.ComboBox txtTeacher;
     }
 }

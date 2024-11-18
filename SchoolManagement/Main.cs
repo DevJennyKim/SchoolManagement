@@ -56,5 +56,11 @@ namespace SchoolManagement
             Section st = new Section();
             st.Show();
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            StudentSection ss = new StudentSection();
+            ss.Show();
+        }
     }
 }
