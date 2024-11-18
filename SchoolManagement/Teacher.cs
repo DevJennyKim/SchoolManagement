@@ -174,8 +174,17 @@ namespace SchoolManagement
             using (SqlConnection con = GetSqlConnection())
             {
                 con.Open();
+                SqlCommand checkTeacherExistsCmd = new SqlCommand("SELECT COUNT(*) FROM teachertab WHERE teacherid = @teacherid", con);
+                checkTeacherExistsCmd.Parameters.AddWithValue("@teacherid", int.Parse(txtTeacherId.Text));
+                int teacherExists = (int)checkTeacherExistsCmd.ExecuteScalar();
 
-             
+                if (teacherExists == 0)
+                {
+                    MessageBox.Show("Teacher ID not found. Please enter a valid Teacher ID or use the Save button to add a new teacher.",
+                                    "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 SqlCommand getSubjectIdCmd = new SqlCommand("SELECT subjectId FROM subtab WHERE subjectname = @subjectname", con);
                 getSubjectIdCmd.Parameters.AddWithValue("@subjectname", txtSubject.SelectedItem.ToString());
                 object subjectIdObj = getSubjectIdCmd.ExecuteScalar();
@@ -249,13 +258,45 @@ namespace SchoolManagement
         }
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(txtTeacherId.Text))
+            {
+                MessageBox.Show("Please enter a teacher ID to delete.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int teacherId = int.Parse(txtTeacherId.Text);
+
             using (SqlConnection con = GetSqlConnection())
             {
                 con.Open();
 
-                SqlCommand cnn = new SqlCommand("DELETE FROM teachertab WHERE teacherid=@teacherid", con);
-                cnn.Parameters.AddWithValue("@teacherid", int.Parse(txtTeacherId.Text));
-                cnn.ExecuteNonQuery();
+                SqlCommand checkExistCmd = new SqlCommand("SELECT COUNT(*) FROM teachertab WHERE teacherid = @teacherid", con);
+                checkExistCmd.Parameters.AddWithValue("@teacherid", teacherId);
+
+                int count1 = (int)checkExistCmd.ExecuteScalar();
+
+
+                if (count1 == 0)
+                {
+                    MessageBox.Show("No data found to delete.", "No Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                SqlCommand checkUsageCmd = new SqlCommand("SELECT COUNT(*) FROM sectiontab WHERE teacherid = @teacherid", con);
+                checkUsageCmd.Parameters.AddWithValue("@teacherid", teacherId);
+
+                int usageCount = (int)checkUsageCmd.ExecuteScalar();
+
+                if (usageCount > 0)
+                {
+                    MessageBox.Show("This teacher is currently assigned to a section. Please delete the section before deleting the teacher.",
+                        "Cannot Delete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+
+                SqlCommand deleteCmd = new SqlCommand("DELETE FROM teachertab WHERE teacherid = @teacherid", con);
+                deleteCmd.Parameters.AddWithValue("@teacherid", teacherId);
+                deleteCmd.ExecuteNonQuery();
             }
 
             MessageBox.Show("Record deleted successfully.", "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);

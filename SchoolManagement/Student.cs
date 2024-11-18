@@ -128,7 +128,7 @@ namespace SchoolManagement
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-
+       
             if (string.IsNullOrWhiteSpace(txtStudentName.Text))
             {
                 MessageBox.Show("Please enter a student name.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -158,7 +158,6 @@ namespace SchoolManagement
             {
                 con.Open();
 
-
                 SqlCommand getTeacherIdCmd = new SqlCommand("SELECT teacherid FROM teachertab WHERE teachername = @teachername", con);
                 getTeacherIdCmd.Parameters.AddWithValue("@teachername", txtTeacher.Text);
                 object teacherIdObj = getTeacherIdCmd.ExecuteScalar();
@@ -172,7 +171,7 @@ namespace SchoolManagement
                 teacherId = Convert.ToInt32(teacherIdObj);
 
                 SqlCommand checkIdCmd = new SqlCommand("SELECT COUNT(*) FROM studentab WHERE studentid = @studentid", con);
-                checkIdCmd.Parameters.AddWithValue("@studentid", int.Parse(txtTeacher.Text));
+                checkIdCmd.Parameters.AddWithValue("@studentid", int.Parse(txtStudentId.Text));
                 int idCount = (int)checkIdCmd.ExecuteScalar();
 
                 if (idCount > 0)
@@ -181,7 +180,7 @@ namespace SchoolManagement
                     return;
                 }
 
-                
+           
                 SqlCommand cnn = new SqlCommand(@"
             INSERT INTO studentab 
             (studentid, studentname, dob, gender, phone, email, address, enrollmentDate, teacherid) 
@@ -197,6 +196,7 @@ namespace SchoolManagement
                 cnn.Parameters.AddWithValue("@Address", txtStudentAdd.Text);
                 cnn.Parameters.AddWithValue("@EnrollmentDate", txtEnrollmentDate.Value.Date);
                 cnn.Parameters.AddWithValue("@TeacherId", teacherId);
+
                 cnn.ExecuteNonQuery();
             }
 
@@ -208,8 +208,10 @@ namespace SchoolManagement
 
 
 
+
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            
             if (!IsValidEmail(txtStudentEmail.Text))
             {
                 MessageBox.Show("Please enter a valid email address.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -220,7 +222,19 @@ namespace SchoolManagement
                 using (SqlConnection con = GetSqlConnection())
             {
                 con.Open();
-                int teacherId;
+
+                    SqlCommand checkStudentExistsCmd = new SqlCommand("SELECT COUNT(*) FROM studentab WHERE studentid = @studentid", con);
+                    checkStudentExistsCmd.Parameters.AddWithValue("@studentid", int.Parse(txtStudentId.Text));
+                    int studentExists = (int)checkStudentExistsCmd.ExecuteScalar();
+
+                    if (studentExists == 0)
+                    {
+                        MessageBox.Show("Student ID not found. Please enter a valid Student ID or use the Save button to add a new student.",
+                                        "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    int teacherId;
                 using (SqlCommand getTeacherIdCmd = new SqlCommand("SELECT teacherid FROM teachertab WHERE teachername = @teachername", con))
                 {
                     getTeacherIdCmd.Parameters.AddWithValue("@teachername", txtTeacher.Text);
@@ -234,28 +248,28 @@ namespace SchoolManagement
                 }
 
                 SqlCommand cnn = new SqlCommand(@"
-    UPDATE studentab 
-    SET 
-        studentname = @studentname, 
-        dob = @dob, 
-        gender = @gender, 
-        phone = @phone, 
-        email = @email, 
-        address = @address, 
-        enrollmentDate = @enrollmentDate, 
-        teacherid = @teacherid
-    WHERE 
-        studentid = @studentid", con);
-                cnn.Parameters.AddWithValue("@StudentId", int.Parse(txtStudentId.Text));
-                cnn.Parameters.AddWithValue("@StudentName", txtStudentName.Text);
-                cnn.Parameters.AddWithValue("@Dob", txtStudentDob.Value.Date);
-                cnn.Parameters.AddWithValue("@Gender", txtStudentGen.SelectedItem.ToString());
-                cnn.Parameters.AddWithValue("@Phone", txtStudentPhone.Text);
-                cnn.Parameters.AddWithValue("@Email", txtStudentEmail.Text);
-                cnn.Parameters.AddWithValue("@Address", txtStudentAdd.Text);
-                cnn.Parameters.AddWithValue("@EnrollmentDate", txtEnrollmentDate.Value.Date);
-                cnn.Parameters.AddWithValue("@TeacherId", teacherId);
-                cnn.ExecuteNonQuery();
+                    UPDATE studentab 
+                    SET 
+                        studentname = @studentname, 
+                        dob = @dob, 
+                        gender = @gender, 
+                        phone = @phone, 
+                        email = @email, 
+                        address = @address, 
+                        enrollmentDate = @enrollmentDate, 
+                        teacherid = @teacherid
+                    WHERE 
+                        studentid = @studentid", con);
+                        cnn.Parameters.AddWithValue("@StudentId", int.Parse(txtStudentId.Text));
+                        cnn.Parameters.AddWithValue("@StudentName", txtStudentName.Text);
+                        cnn.Parameters.AddWithValue("@Dob", txtStudentDob.Value.Date);
+                        cnn.Parameters.AddWithValue("@Gender", txtStudentGen.SelectedItem.ToString());
+                        cnn.Parameters.AddWithValue("@Phone", txtStudentPhone.Text);
+                        cnn.Parameters.AddWithValue("@Email", txtStudentEmail.Text);
+                        cnn.Parameters.AddWithValue("@Address", txtStudentAdd.Text);
+                        cnn.Parameters.AddWithValue("@EnrollmentDate", txtEnrollmentDate.Value.Date);
+                        cnn.Parameters.AddWithValue("@TeacherId", teacherId);
+                        cnn.ExecuteNonQuery();
             }
 
             MessageBox.Show("Record updated successfully.", "Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -270,10 +284,36 @@ namespace SchoolManagement
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(txtStudentId.Text))
+            {
+                MessageBox.Show("Please enter a student ID to delete.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            int studentId = int.Parse(txtStudentId.Text);
+
             using (SqlConnection con = GetSqlConnection())
             {
                 con.Open();
+                SqlCommand checkUsageCmd = new SqlCommand("SELECT COUNT(*) FROM studentSectiontab WHERE studentid = @studentid", con);
+                checkUsageCmd.Parameters.AddWithValue("@studentid", studentId);
 
+                int usageCount = (int)checkUsageCmd.ExecuteScalar();
+
+                if (usageCount > 0)
+                {
+                    MessageBox.Show("This student is currently enrolled in a section and cannot be deleted.", "Cannot Delete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                SqlCommand checkExistCmd = new SqlCommand("SELECT COUNT(*) FROM studentab WHERE studentid = @studentid", con);
+                checkExistCmd.Parameters.AddWithValue("@studentid", studentId);
+
+                int existCount = (int)checkExistCmd.ExecuteScalar();
+
+                if (existCount == 0)
+                {
+                    MessageBox.Show("No data found to delete.", "No Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
                 SqlCommand cnn = new SqlCommand("DELETE FROM studentab WHERE studentid=@studentid", con);
                 cnn.Parameters.AddWithValue("@StudentId", int.Parse(txtStudentId.Text));
                 cnn.ExecuteNonQuery();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Diagnostics.Metrics;
 using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
 
@@ -34,6 +35,11 @@ namespace SchoolManagement
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtSubjectId.Text))
+            {
+                MessageBox.Show("Please enter a subject Id.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             if (string.IsNullOrWhiteSpace(txtSubjectName.Text))
             {
@@ -84,9 +90,24 @@ namespace SchoolManagement
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtSubjectId.Text))
+            {
+                MessageBox.Show("Please enter a subject Id.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             using (SqlConnection con = GetSqlConnection())
             {
                 con.Open();
+                SqlCommand checkSubjectExistsCmd = new SqlCommand("SELECT COUNT(*) FROM subtab WHERE subjectid = @subjectid", con);
+                checkSubjectExistsCmd.Parameters.AddWithValue("@subjectid", int.Parse(txtSubjectId.Text));
+                int subjectExists = (int)checkSubjectExistsCmd.ExecuteScalar();
+
+                if (subjectExists == 0)
+                {
+                    MessageBox.Show("Subject ID not found. Please enter a valid subject ID or use the Save button to add a new subject.",
+                                    "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
                 SqlCommand cnn = new SqlCommand("update subtab set subjectname=@subjectname where subjectid=@subjectid", con);
                 cnn.Parameters.AddWithValue("@subjectid", int.Parse(txtSubjectId.Text));
@@ -101,32 +122,51 @@ namespace SchoolManagement
             }
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            using (SqlConnection con = GetSqlConnection())
-            {
-                con.Open();
-
-                SqlCommand cnn = new SqlCommand("select * from subtab", con);
-                SqlDataAdapter da = new SqlDataAdapter(cnn);
-                DataTable table = new DataTable();
-                da.Fill(table);
-                dataGridView1.DataSource = table;
-                LoadData();
-            }
-        }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtSubjectId.Text))
+            {
+                MessageBox.Show("Please enter a subject Id.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            int subjectId = int.Parse(txtSubjectId.Text);
+            
             using (SqlConnection con = GetSqlConnection())
             {
                 con.Open();
 
-                SqlCommand cnn = new SqlCommand("delete subtab where subjectid=@subjectid", con);
-                cnn.Parameters.AddWithValue("@subjectid", int.Parse(txtSubjectId.Text));
+                SqlCommand checkExistCmd = new SqlCommand("SELECT COUNT(*) FROM subtab WHERE subjectid = @subjectid", con);
+                checkExistCmd.Parameters.AddWithValue("@subjectid", subjectId);
 
-                cnn.ExecuteNonQuery();
+                int count1 = (int)checkExistCmd.ExecuteScalar();
+
+                
+                if (count1 == 0)
+                {
+                    MessageBox.Show("No data found to delete.", "No Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                SqlCommand checkUsageCmd = new SqlCommand("SELECT COUNT(*) FROM teachertab WHERE subjectid = @subjectid", con);
+                checkUsageCmd.Parameters.AddWithValue("@subjectid", subjectId);
+
+                int count2 = (int)checkUsageCmd.ExecuteScalar();
+
+                if (count2 > 0)
+                {
+                    
+                    MessageBox.Show("This subject is currently in use and cannot be deleted.", "Cannot Delete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+               
+
+                SqlCommand deleteCmd = new SqlCommand("DELETE FROM subtab WHERE subjectid = @subjectid", con);
+                deleteCmd.Parameters.AddWithValue("@subjectid", subjectId);
+
+                deleteCmd.ExecuteNonQuery();
                 con.Close();
+
                 MessageBox.Show("Record Deleted Successfully", "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadData();
             }

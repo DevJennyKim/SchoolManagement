@@ -238,7 +238,7 @@ namespace SchoolManagement
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtSectionId.Text) || string.IsNullOrEmpty(txtTeacher.Text) ||
+            if (string.IsNullOrEmpty(txtTeacher.Text) ||
                 string.IsNullOrEmpty(txtSubject.Text) || string.IsNullOrEmpty(txtDayofWeek.Text) ||
                 string.IsNullOrEmpty(txtBlock.Text) || string.IsNullOrEmpty(txtStartTime.Text) ||
                 string.IsNullOrEmpty(txtEndTime.Text) || string.IsNullOrEmpty(txtClassRoom.Text))
@@ -369,7 +369,7 @@ namespace SchoolManagement
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtSectionId.Text) || string.IsNullOrEmpty(txtTeacher.Text) ||
+            if (string.IsNullOrEmpty(txtTeacher.Text) || string.IsNullOrEmpty(txtTeacher.Text) ||
         string.IsNullOrEmpty(txtSubject.Text) || string.IsNullOrEmpty(txtDayofWeek.Text) ||
         string.IsNullOrEmpty(txtBlock.Text) || string.IsNullOrEmpty(txtStartTime.Text) ||
         string.IsNullOrEmpty(txtEndTime.Text) || string.IsNullOrEmpty(txtClassRoom.Text))
@@ -397,6 +397,16 @@ namespace SchoolManagement
                 using (SqlConnection con = GetSqlConnection())
                 {
                     con.Open();
+                    SqlCommand checkSectionExistsCmd = new SqlCommand("SELECT COUNT(*) FROM sectiontab WHERE sectionid = @sectionid", con);
+                    checkSectionExistsCmd.Parameters.AddWithValue("@sectionid", int.Parse(txtSectionId.Text));
+                    int sectionExists = (int)checkSectionExistsCmd.ExecuteScalar();
+
+                    if (sectionExists == 0)
+                    {
+                        MessageBox.Show("Section ID not found. Please enter a valid section ID or use the Save button to add a new section.",
+                                        "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                     SqlCommand cmd = new SqlCommand(@"
                 UPDATE sectiontab
                 SET teacherid = @teacherid,
@@ -453,13 +463,41 @@ namespace SchoolManagement
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtSectionId.Text))
+            {
+                MessageBox.Show("Please enter a section Id.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            int sectionId = int.Parse(txtSectionId.Text);
+
             using (SqlConnection con = GetSqlConnection())
             {
                 con.Open();
 
-                SqlCommand cnn = new SqlCommand("DELETE FROM sectiontab WHERE sectionid=@sectionid", con);
-                cnn.Parameters.AddWithValue("@sectionid", int.Parse(txtSectionId.Text));
-                cnn.ExecuteNonQuery();
+                SqlCommand checkUsageCmd = new SqlCommand("SELECT COUNT(*) FROM studentsectiontab WHERE sectionid = @sectionid", con);
+                checkUsageCmd.Parameters.AddWithValue("@sectionid", sectionId);
+                int count1 = (int)checkUsageCmd.ExecuteScalar();
+
+                if (count1 > 0)
+                {
+                    MessageBox.Show("This section is currently in use and cannot be deleted.", "Cannot Delete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                SqlCommand checkExistCmd = new SqlCommand("SELECT COUNT(*) FROM sectiontab WHERE sectionid = @sectionid", con);
+                checkExistCmd.Parameters.AddWithValue("@sectionid", sectionId);
+                int count2 = (int)checkExistCmd.ExecuteScalar();
+
+                if (count2 == 0)
+                {
+                    MessageBox.Show("No data found to delete.", "No Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                SqlCommand deleteCmd = new SqlCommand("DELETE FROM sectiontab WHERE sectionid = @sectionid", con);
+                deleteCmd.Parameters.AddWithValue("@sectionid", sectionId);
+                deleteCmd.ExecuteNonQuery();
             }
 
             MessageBox.Show("Record deleted successfully.", "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
