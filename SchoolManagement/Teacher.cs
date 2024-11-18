@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 using Microsoft.Data.SqlClient;
 
 namespace SchoolManagement
@@ -34,6 +35,14 @@ namespace SchoolManagement
             txtHireDate.CustomFormat = "dd/MM/yyyy";
 
             
+        }
+        private SqlConnection GetSqlConnection()
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load("./Database.config");
+
+            string connectionString = doc.SelectSingleNode("//connectionStrings/add[@name='SchoolDbConnection']").Attributes["connectionString"].Value;
+            return new SqlConnection(connectionString);
         }
 
         private void LoadSubjects()
@@ -70,10 +79,7 @@ namespace SchoolManagement
             }
 
         }
-        private SqlConnection GetSqlConnection()
-        {
-            return new SqlConnection(@"Data Source=DESKTOP-JBJ28O4;Initial Catalog=schooldb;Integrated Security=True;Trust Server Certificate=True");
-        }
+        
         private bool IsValidEmail(string email)
         {
 
