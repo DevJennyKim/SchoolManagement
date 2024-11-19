@@ -32,7 +32,7 @@ The database connection string is located in the `Database.config.example` file 
 
 ### Step 1: Clone the Repository
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
+git clone https://github.com/DevJennyKim/SchoolManagement.git
 cd your-repo-name
 ```
 
