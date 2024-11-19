@@ -35,6 +35,7 @@ The database connection string is located in the `Database.config.example` file 
 git clone https://github.com/your-username/your-repo-name.git
 cd your-repo-name
 
+
 ### Step 2:Install Dependencies
 Before running the project, you need to make sure all required dependencies are installed. This is typically done via the NuGet package manager.
 Open the solution file (SchoolManagement.sln) in Visual Studio.
@@ -49,7 +50,6 @@ Step 5: Run the Project
 Press F5 or go to Debug > Start Debugging to run the application.
 
 The application should now be running, and you can access it via the default web browser or the Visual Studio development server.
-
 
 
 
