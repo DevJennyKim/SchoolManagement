@@ -34,7 +34,7 @@ The database connection string is located in the `Database.config.example` file 
 ```bash
 git clone https://github.com/your-username/your-repo-name.git
 cd your-repo-name
-
+```
 
 ### Step 2:Install Dependencies
 Before running the project, you need to make sure all required dependencies are installed. This is typically done via the NuGet package manager.
